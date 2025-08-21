@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    # Service containers to run with `runner-job`
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: install poetry
+        run: pipx install poetry
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11.4"
+          cache: "poetry"
+
+      - name: install dependencies
+        run: poetry install
+
+      - name: Run mypy
+        run: poetry run mypy .
+
+      - name: Run ruff linter
+        run: poetry run ruff check
+
+      - name: Run ruff formatter check
+        run: poetry run ruff format --check
+
+      - name: Run unit tests
+        run: make unit-tests
+
+      - name: Run e2e tests
+        run: make e2e-tests
+
+      - name: Run migration tests
+        env:
+          PMR_POSTGRES_CI_PORT: 5532
+        run: make migration-tests

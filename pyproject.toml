@@ -1,0 +1,105 @@
+[tool.poetry]
+name = "task-manager"
+version = "0.1.0"
+description = "Task Manager API"
+authors = ["husein <huseinnaimov72@gmail.com>"]
+package-mode = false
+
+
+[tool.poetry.dependencies]
+python = ">=3.13.3"
+pytest = {version = "^8.4.1", extras = ["asyncio"]}
+fastapi = "^0.116.1"
+uvicorn = "^0.35.0"
+sqlalchemy = "^2.0.43"
+alembic = "^1.16.4"
+asyncpg = "^0.30.0"
+pydantic-settings = "^2.10.1"
+dishka = "^1.6.0"
+ruff = "^0.12.9"
+pydantic = "^2.11.7"
+orjson = "^3.9.10"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+python_version = "3.12"
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unreachable = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = false
+no_implicit_optional = true
+strict_optional = true
+strict_equality = true
+implicit_reexport = false
+show_error_context = true
+pretty = true
+show_traceback = true
+scripts_are_modules = true
+ignore_missing_imports = true
+namespace_packages = true
+exclude = ["kust_*", "src/presentation/grpc/dto"]
+
+[[tool.mypy.overrides]]
+module = ["src.presentation.grpc.*"]
+disable_error_code = ["no-untyped-call"]
+
+[[tool.mypy.overrides]]
+module = ["src.presentation.grpc.dto.*"]
+disable_error_code = ["no-untyped-def"]
+
+[tool.pytest.ini_options]
+# pythonpath = ["app"]
+addopts = "--cov src --cov-append --cov-branch --cov-report term-missing --cov-report=xml"
+testpaths = "tests"
+filterwarnings = ["ignore::pydantic.PydanticDeprecatedSince20"]
+
+[tool.coverage.run]
+omit = [
+    "src/presentation/grpc/dto/*",
+    "*/tests/*"
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+# exclude = ["kust_*"]
+lint.select = ["I", "ASYNC", "S", "T20", "SIM", "E", "W", "C90", "PL", "RUF", "F"]
+lint.ignore = ["RUF001", "RUF002", "RUF012", "RUF021", "PLC0414", "S105"]
+lint.pylint.max-args = 9
+
+[tool.ruff.lint.isort]
+forced-separate = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    # at least this three should be fine in tests:
+    "S101", # asserts allowed in tests...
+    "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+    "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    # The below are debateable
+    "PLR2004", # Magic value used in comparison, ...
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "RUF003", # Allow cyrillic characters
+    "S301", # `pickle` and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue
+    "PLR0913", # Too many arguments in function definition (9 > 8)
+    "S307", # Use of possibly insecure function; consider using `ast.literal_eval`
+    "S106", # Possible hardcoded password assigned to argument: "password"
+]
