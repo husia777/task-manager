@@ -54,9 +54,6 @@ integration-tests:
 functional-tests:
 	poetry run pytest -W ignore::DeprecationWarning tests/functional
 
-migrations-tests:
-	poetry run pytest tests/migrations
-
 cov-tests:
 	rm -rf .coverage cov_html coverage.xml \
 	&& poetry run pytest -x --cov-report html:cov_html tests/unit \

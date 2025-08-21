@@ -10,7 +10,7 @@ from src.domain.task.exception import TaskNotFoundError, TaskValidationError
 from src.domain.task.value_object import TaskStatus
 from src.presentation.errors import BadRequest, NotFound, to_error_detail
 from src.presentation.web_api.providers.abstract.task import task_service_provider
-from src.presentation.web_api.schemas.task import DeleteResponse, TaskDTO
+from src.presentation.web_api.schemas.task import DeleteResponse, TaskDTO, TaskCreateRequest
 
 task_router = APIRouter(prefix="/tasks", tags=["tasks"])
 
@@ -26,12 +26,11 @@ task_router = APIRouter(prefix="/tasks", tags=["tasks"])
     operation_id="create_task",
 )
 async def create_task(
-    title: str,
-    description: str = "",
+    task_data: TaskCreateRequest,
     service: TaskService = Depends(task_service_provider),
 ) -> TaskEntity | Any:
     try:
-        task = await service.create(title, description)
+        task = await service.create(title=task_data.title, description=task_data.description)
         return task
     except TaskValidationError as e:
         return to_error_detail(e, HTTPStatus.BAD_REQUEST)

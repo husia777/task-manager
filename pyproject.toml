@@ -7,8 +7,9 @@ package-mode = false
 
 
 [tool.poetry.dependencies]
-python = ">=3.13.3"
+python = ">=3.13.3,<4.0.0"
 pytest = {version = "^8.4.1", extras = ["asyncio"]}
+pytest-mock-resources = {extras = ["postgres-async", "docker"], version = "^2.9.1"}
 fastapi = "^0.116.1"
 uvicorn = "^0.35.0"
 sqlalchemy = "^2.0.43"
@@ -19,6 +20,8 @@ dishka = "^1.6.0"
 ruff = "^0.12.9"
 pydantic = "^2.11.7"
 orjson = "^3.9.10"
+pytest-alembic = "^0.12.1"
+pytest-asyncio = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"
@@ -26,13 +29,20 @@ black = "^23.11.0"
 isort = "^5.12.0"
 flake8 = "^6.1.0"
 mypy = "^1.7.0"
+pytest-cov = "^6.2.1"
+httpx = "^0.28.1"
+aiosqlite = "^0.21.0"
+
+
+[tool.poetry.group.test.dependencies]
+async-asgi-testclient = "^1.4.11"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.13"
 warn_redundant_casts = true
 warn_unused_ignores = true
 warn_unreachable = true
@@ -66,6 +76,7 @@ disable_error_code = ["no-untyped-def"]
 addopts = "--cov src --cov-append --cov-branch --cov-report term-missing --cov-report=xml"
 testpaths = "tests"
 filterwarnings = ["ignore::pydantic.PydanticDeprecatedSince20"]
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 omit = [

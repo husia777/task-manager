@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from src.domain.task.value_object import TaskStatus
 
@@ -18,3 +18,8 @@ class TaskDTO(BaseModel):
 
 class DeleteResponse(BaseModel):
     message: str
+
+
+class TaskCreateRequest(BaseModel):
+    title: str = Field(..., min_length=1, max_length=255)
+    description: str = Field("", max_length=1000)
