@@ -7,7 +7,7 @@ install-local:
 
 format-lint:
 	poetry run pre-commit run --all-files
-	
+
 check:
 	@poetry run ruff check && \
 	poetry run ruff format --check && \

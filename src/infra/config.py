@@ -11,8 +11,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class PostgresSettings(BaseSettings):
     user: str = "postgres"
     password: str = "postgres"
-    host: str = "postgres"
-    port: int = 5432
+    host: str = "localhost"
+    port: int = 5433
     db: str = "postgres"
     driver: Literal["asyncpg", "psycopg", "psycopg2"] = "asyncpg"
 
