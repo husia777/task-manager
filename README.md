@@ -1,8 +1,9 @@
 Команды для запуска сервера
 1) git clone git@github.com:husia777/task-manager.git
 2) cd task-manager
-3) docker-compose up --build
-4) http://localhost:8080/docs
+3) make env
+4) docker-compose up --build
+5) http://localhost:8080/docs
 
 
 Конфиг для локально запуска тестов
