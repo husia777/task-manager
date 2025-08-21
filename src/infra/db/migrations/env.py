@@ -1,13 +1,14 @@
+import asyncio
+from logging.config import fileConfig
+
+from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
-from alembic import context
-import asyncio
-from logging.config import fileConfig
-from src.infra.config import PostgresSettings
 
+from src.infra.config import PostgresSettings
 from src.infra.db.connection import Base
-from src.infra.db.models.task import Task
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -44,7 +45,6 @@ def run_migrations_offline() -> None:
 
     """
     url = config.get_main_option("sqlalchemy.url")
-    print(url, "url")
     context.configure(
         url=url,
         target_metadata=target_metadata,

@@ -21,6 +21,7 @@ pydantic = "^2.11.7"
 orjson = "^3.9.10"
 
 [tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
 black = "^23.11.0"
 isort = "^5.12.0"
 flake8 = "^6.1.0"
@@ -80,7 +81,6 @@ exclude_also = [
 [tool.ruff]
 line-length = 88
 target-version = "py311"
-# exclude = ["kust_*"]
 lint.select = ["I", "ASYNC", "S", "T20", "SIM", "E", "W", "C90", "PL", "RUF", "F"]
 lint.ignore = ["RUF001", "RUF002", "RUF012", "RUF021", "PLC0414", "S105"]
 lint.pylint.max-args = 9
@@ -102,4 +102,5 @@ forced-separate = ["tests"]
     "PLR0913", # Too many arguments in function definition (9 > 8)
     "S307", # Use of possibly insecure function; consider using `ast.literal_eval`
     "S106", # Possible hardcoded password assigned to argument: "password"
+    "F401", # imported but unused
 ]

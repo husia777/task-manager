@@ -7,14 +7,13 @@ from pytest_mock_resources import create_postgres_fixture
 
 from src.infra.config import BASE_DIR
 
-
-alembic_engine = create_postgres_fixture(async_=True)  # type: ignore
+alembic_engine = create_postgres_fixture(async_=True)
 
 
 @pytest.fixture
 def alembic_config() -> Any:
     """Override this fixture to configure the exact alembic context setup required."""
-    script_location = os.path.join(BASE_DIR,  "infra", "db", "migrations")
+    script_location = os.path.join(BASE_DIR, "infra", "db", "migrations")
     config_path = os.path.join(os.path.dirname(BASE_DIR), "alembic.ini")
     alembic_config = Config(
         config_options={

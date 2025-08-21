@@ -45,8 +45,4 @@ class TaskValidationError(DomainError):
         return f"Некорректное значение для поля {self.field}: {self.reason}"
 
     def body(self) -> Dict[str, Any]:
-        return {
-            "field": self.field,
-            "value": str(self.value),
-            "reason": self.reason
-        }
+        return {"field": self.field, "value": str(self.value), "reason": self.reason}

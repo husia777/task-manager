@@ -1,3 +1,5 @@
-def task_service_provider():
-    raise NotImplementedError
+from typing import NoReturn
 
+
+def task_service_provider() -> NoReturn:
+    raise NotImplementedError

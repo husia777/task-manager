@@ -1,4 +1,4 @@
-from functools import lru_cache
+import os
 from typing import Literal
 
 from pydantic import (
@@ -29,3 +29,6 @@ class PostgresSettings(BaseSettings):
         )
 
     model_config = SettingsConfigDict(env_prefix="postgres_")
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
