@@ -8,8 +8,6 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.13.3,<4.0.0"
-pytest = {version = "^8.4.1", extras = ["asyncio"]}
-pytest-mock-resources = {extras = ["postgres-async", "docker"], version = "^2.9.1"}
 fastapi = "^0.116.1"
 uvicorn = "^0.35.0"
 sqlalchemy = "^2.0.43"
@@ -20,8 +18,7 @@ dishka = "^1.6.0"
 ruff = "^0.12.9"
 pydantic = "^2.11.7"
 orjson = "^3.9.10"
-pytest-alembic = "^0.12.1"
-pytest-asyncio = "^1.1.0"
+
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"
@@ -29,13 +26,18 @@ black = "^23.11.0"
 isort = "^5.12.0"
 flake8 = "^6.1.0"
 mypy = "^1.7.0"
-pytest-cov = "^6.2.1"
 httpx = "^0.28.1"
 aiosqlite = "^0.21.0"
-
+virtualenv = "20.32.0"
 
 [tool.poetry.group.test.dependencies]
 async-asgi-testclient = "^1.4.11"
+pytest-alembic = "^0.12.1"
+pytest-asyncio = "^1.1.0"
+pytest = {version = "^8.4.1", extras = ["asyncio"]}
+pytest-mock-resources = {extras = ["postgres-async", "docker"], version = "^2.9.1"}
+pytest-cov = "^5.0.0"
+pytest-lazy-fixtures = "^1.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -61,7 +63,6 @@ show_traceback = true
 scripts_are_modules = true
 ignore_missing_imports = true
 namespace_packages = true
-exclude = ["kust_*", "src/presentation/grpc/dto"]
 
 [[tool.mypy.overrides]]
 module = ["src.presentation.grpc.*"]
@@ -91,7 +92,7 @@ exclude_also = [
 
 [tool.ruff]
 line-length = 88
-target-version = "py311"
+target-version = "py313"
 lint.select = ["I", "ASYNC", "S", "T20", "SIM", "E", "W", "C90", "PL", "RUF", "F"]
 lint.ignore = ["RUF001", "RUF002", "RUF012", "RUF021", "PLC0414", "S105"]
 lint.pylint.max-args = 9
@@ -113,5 +114,4 @@ forced-separate = ["tests"]
     "PLR0913", # Too many arguments in function definition (9 > 8)
     "S307", # Use of possibly insecure function; consider using `ast.literal_eval`
     "S106", # Possible hardcoded password assigned to argument: "password"
-    "F401", # imported but unused
 ]

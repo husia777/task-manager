@@ -1,8 +1,9 @@
 import uuid
+
 from src.domain.task.exception import TaskNotFoundError, TaskValidationError
 
 
-def test_task_not_found_error():
+def test_task_not_found_error() -> None:
     task_id = uuid.uuid4()
     error = TaskNotFoundError(task_id)
 
@@ -10,7 +11,7 @@ def test_task_not_found_error():
     assert error.body() == {"task_id": str(task_id)}
 
 
-def test_task_validation_error():
+def test_task_validation_error() -> None:
     error = TaskValidationError("title", "", "Не может быть пустым")
 
     assert "title" in error.message

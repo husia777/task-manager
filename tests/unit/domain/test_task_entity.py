@@ -1,14 +1,13 @@
 import uuid
 from datetime import datetime
+
 from src.domain.task.entity import TaskEntity
 from src.domain.task.value_object import TaskStatus
 
 
-def test_task_entity_creation():
+def test_task_entity_creation() -> None:
     task = TaskEntity(
-        title="Test Task",
-        description="Test Description",
-        status=TaskStatus.IN_PROGRESS
+        title="Test Task", description="Test Description", status=TaskStatus.IN_PROGRESS
     )
 
     assert task.title == "Test Task"
@@ -18,7 +17,7 @@ def test_task_entity_creation():
     assert isinstance(task.created_at, datetime)
 
 
-def test_task_entity_default_values():
+def test_task_entity_default_values() -> None:
     task = TaskEntity()
 
     assert task.title == ""
