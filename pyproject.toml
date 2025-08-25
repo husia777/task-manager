@@ -28,7 +28,7 @@ flake8 = "^6.1.0"
 mypy = "^1.7.0"
 httpx = "^0.28.1"
 aiosqlite = "^0.21.0"
-virtualenv = "20.32.0"
+virtualenv = "20.34.0"
 
 [tool.poetry.group.test.dependencies]
 async-asgi-testclient = "^1.4.11"
