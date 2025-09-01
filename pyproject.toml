@@ -17,7 +17,7 @@ pydantic-settings = "^2.10.1"
 dishka = "^1.6.0"
 ruff = "^0.12.9"
 pydantic = "^2.11.7"
-orjson = "^3.9.10"
+orjson = "^3.11.3"
 
 
 [tool.poetry.group.dev.dependencies]
