@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: alembic-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: alembic
+        image: husia777/task-manager-api:latest
+        command: [ "alembic", "upgrade", "head" ]
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secrets
+      restartPolicy: Never
+  backoffLimit: 2

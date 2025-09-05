@@ -41,24 +41,31 @@ downgrade:
 	@LOG_LEVEL=info poetry run alembic --config "alembic.ini" downgrade -1
 
 
-########################################################################################
-# TESTS
-########################################################################################
+run-in-kubernetes:
+	kubectl apply -f ./kubernetes/app-config.yaml
+	kubectl apply -f ./kubernetes/app-secrets.yaml
+	kubectl apply -f ./kubernetes/postgres-service.yaml
+	kubectl apply -f ./kubernetes/postgres-statefulset.yaml
+	kubectl wait --for=condition=ready pod -l app=postgres --timeout=120s
+	kubectl apply -f ./kubernetes/api-migrations.yaml
+	kubectl wait --for=condition=complete job/alembic-migration --timeout=120s
+	kubectl apply -f ./kubernetes/api-service.yaml
+	kubectl apply -f ./kubernetes/api-deployment.yaml
 
-.PHONY: tests
-tests: unit-tests integration-tests functional-tests
 
-unit-tests:
-	poetry run pytest tests/unit
+clear-default-ns:
+	kubectl scale deployment api-deployment --replicas=0 -n default
+	kubectl delete statefulset postgres -n default --force --grace-period=0
+	kubectl delete pods --all --grace-period=0 --force -n default
+	kubectl delete -f ./kubernetes/app-config.yaml -n default
+	kubectl delete -f ./kubernetes/app-secrets.yaml -n default
+	kubectl delete -f ./kubernetes/postgres-service.yaml -n default
+	kubectl delete -f ./kubernetes/api-migrations.yaml -n default
+	kubectl delete -f ./kubernetes/api-service.yaml -n default
+	kubectl delete -f ./kubernetes/api-deployment.yaml -n default
+	kubectl delete pvc postgres-storage-postgres-0
 
-integration-tests:
-	poetry run pytest tests/integration
-
-functional-tests:
-	poetry run pytest -W ignore::DeprecationWarning tests/functional
-
-cov-tests:
-	rm -rf .coverage cov_html coverage.xml \
-	&& poetry run pytest -x --cov-report html:cov_html tests/unit \
-	&& poetry run pytest -x --cov-report html:cov_html -W ignore::DeprecationWarning tests/integration \
-	&& poetry run pytest -x --cov-report html:cov_html tests/functional
+check-default-ns:
+	@echo "=== Default Namespace ==="
+	kubectl get pods -n default
+	@echo ""
