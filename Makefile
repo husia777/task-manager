@@ -46,9 +46,12 @@ run-in-kubernetes:
 	kubectl apply -f ./kubernetes/app-secrets.yaml
 	kubectl apply -f ./kubernetes/postgres-service.yaml
 	kubectl apply -f ./kubernetes/postgres-statefulset.yaml
-	kubectl wait --for=condition=ready pod -l app=postgres --timeout=120s
+	kubectl wait --for=condition=ready pod -l app=postgres --timeout=300s
 	kubectl apply -f ./kubernetes/api-migrations.yaml
-	kubectl wait --for=condition=complete job/alembic-migration --timeout=120s
+	@while ! kubectl get job alembic-migration -o jsonpath='{.status.startTime}' 2>/dev/null; do \
+		sleep 2; \
+	done
+	kubectl wait --for=condition=complete job/alembic-migration --timeout=300s
 	kubectl apply -f ./kubernetes/api-service.yaml
 	kubectl apply -f ./kubernetes/api-deployment.yaml
 
@@ -69,3 +72,6 @@ check-default-ns:
 	@echo "=== Default Namespace ==="
 	kubectl get pods -n default
 	@echo ""
+
+port-forward:
+	kubectl port-forward svc/api-service 8080:8080 -n default
