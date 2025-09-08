@@ -8,4 +8,26 @@ data:
   POSTGRES_HOST: "db-task-manager-service"
   POSTGRES_PORT: "5432"
   SERVER_PORT: "8000"
+  POSTGRES_DRIVER: "asyncpg"
+
   LOG_LEVEL: "dev"
+  SERVICE_NAME: "task-manager-api"
+  PROJECT_NAME: "task-manager-api"
+
+  EXPORTER_OTLP_ENDPOINT: "http://collector.observability.svc.cluster.local:4317"
+  EXPORTER_OTLP_INSECURE: "true"
+  OPENTELEMETRY_ENDPOINT: "http://collector.observability.svc.cluster.local:4317"
+
+  OBSERVER_INSTRUMENT_SQLALCHEMY: "true"
+  OBSERVER_INSTRUMENT_SQLALCHEMY_SPAN: "false"
+  OBSERVER_INSTRUMENT_FASTAPI: "true"
+  CONSOLE_USE_COLORED: "true"
+  FILTER_HEALTHCHECK: "true"
+  ADD_DEV_LOGGING: "true"
+  USE_OTEL: "true"
+  USE_CUSTOM_LOGGER: "true"
+  CONSOLE_LOG_FORMAT: "%(asctime)s - %(levelname)s - %(name)s.%(funcName)s:%(lineno)d - %(message)s"
+
+  INSTRUMENT_FASTAPI: "true"
+  INSTRUMENT_SQLALCHEMY: "true"
+  INSTRUMENT_SQLALCHEMY_SPAN: "false"

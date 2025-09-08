@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+
 from observer import LoggingSettings, Observer, SpanAttrsFilter, SpanFilterSampler
 from sqlalchemy.ext.asyncio import AsyncEngine
 
