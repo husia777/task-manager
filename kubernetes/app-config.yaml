@@ -8,4 +8,4 @@ data:
   POSTGRES_HOST: "db-task-manager-service"
   POSTGRES_PORT: "5432"
   SERVER_PORT: "8000"
-  LOG_LEVEL: "info"
+  LOG_LEVEL: "dev"

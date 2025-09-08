@@ -8,7 +8,7 @@ from src.infra.config import PostgresSettings
 
 engine = create_async_engine(
     PostgresSettings().dsn.unicode_string(),
-    echo=True,
+    echo=False,
     future=True,
     poolclass=NullPool,
 )

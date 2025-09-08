@@ -74,4 +74,4 @@ check-default-ns:
 	@echo ""
 
 port-forward:
-	kubectl port-forward svc/api-service 8080:8080 -n default
+	kubectl port-forward svc/api-service 7777:8080 -n default

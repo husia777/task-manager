@@ -5,10 +5,18 @@ description = "Task Manager API"
 authors = ["husein <huseinnaimov72@gmail.com>"]
 package-mode = false
 
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "devpi"
+url = "http://192.168.15.22:3141/ss/stable/+simple/"
+priority = "supplemental"
 
 [tool.poetry.dependencies]
 python = ">=3.13.3,<4.0.0"
-fastapi = "^0.116.1"
+fastapi = "^0.112.1"
 uvicorn = "^0.35.0"
 sqlalchemy = "^2.0.43"
 alembic = "^1.16.4"
@@ -18,7 +26,14 @@ dishka = "^1.6.0"
 ruff = "^0.12.9"
 pydantic = "^2.11.7"
 orjson = "^3.9.10"
-
+opentelemetry-api = "^1.25.0"
+opentelemetry-sdk = "^1.25.0"
+opentelemetry-instrumentation = "^0.46b0"
+opentelemetry-exporter-otlp = "^1.25.0"
+opentelemetry-instrumentation-fastapi = "^0.46b0"
+opentelemetry-instrumentation-sqlalchemy = "^0.46b0"
+python-json-logger = "^3.3.0"
+observer = {source = "devpi", version = "0.5.14", extras = ["opentelemetry", "sqlalchemy", "fastapi"] }
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"
