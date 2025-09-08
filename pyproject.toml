@@ -15,7 +15,7 @@ alembic = "^1.16.4"
 asyncpg = "^0.30.0"
 pydantic-settings = "^2.10.1"
 dishka = "^1.6.0"
-ruff = "^0.12.9"
+ruff = "^0.12.12"
 pydantic = "^2.11.7"
 orjson = "^3.9.10"
 
