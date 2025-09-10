@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: api-deployment
   labels:
-    app: task-manager-api
+    app: task-manager-kubernetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: task-manager-api
+      app: task-manager-kubernetes
   template:
     metadata:
       labels:
-        app: task-manager-api
+        app: task-manager-kubernetes
     spec:
       containers:
       - name: api

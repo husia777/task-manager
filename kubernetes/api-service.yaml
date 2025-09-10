@@ -4,7 +4,7 @@ metadata:
   name: api-service
 spec:
   selector:
-    app: task-manager-api
+    app: task-manager-kubernetes
   ports:
   - protocol: TCP
     port: 8080
